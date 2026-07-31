@@ -1,0 +1,1184 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+<style>
+  .full-bleed{
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+  }
+  :root{
+    --pink: #FF97B4;
+    --pink-deep: #E8749A;
+    --pink-pale: #FFE4EC;
+    --pink-mist: #FFF3F6;
+    --ink: #14121A;
+    --ink-soft: #514E5A;
+    --ink-faint: #8A879291;
+    --paper: #FFFFFF;
+    --cloud: #FBF9FA;
+    --line: #ECE7E9;
+    --shadow-sm: 0 2px 10px rgba(20,18,26,0.05);
+    --shadow-md: 0 12px 40px rgba(255,151,180,0.18);
+    --shadow-lg: 0 30px 80px rgba(20,18,26,0.10);
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --radius-pill: 999px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --maxw: 1200px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family:'Century Gothic','Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  img,video{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+  ul{ list-style:none; }
+
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  section{ position:relative; }
+
+  h1,h2,h3,h4{
+    font-weight:700;
+    letter-spacing:-0.02em;
+    line-height:1.12;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--pink-deep);
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:22px;
+    height:2px;
+    background:var(--pink-deep);
+    border-radius:2px;
+  }
+
+  .section-head{
+    max-width:680px;
+    margin-bottom:64px;
+  }
+  .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+  .section-head h2{
+    font-size:clamp(2rem, 3.6vw, 2.9rem);
+    margin-bottom:20px;
+  }
+  .section-head p{
+    font-size:18px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .reveal-stagger > *{ transition-delay:calc(var(--i, 0) * 90ms); }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    *{ animation:none !important; }
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:16px 30px;
+    border-radius:var(--radius-pill);
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:0.01em;
+    transition:transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease);
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    color:#fff;
+    box-shadow:0 10px 30px rgba(232,116,154,0.35);
+  }
+  .btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 16px 40px rgba(232,116,154,0.45);
+  }
+  .btn-secondary{
+    background:var(--paper);
+    color:var(--ink);
+    border:1.5px solid var(--line);
+  }
+  .btn-secondary:hover{
+    border-color:var(--pink);
+    background:var(--pink-mist);
+    transform:translateY(-3px);
+  }
+  .btn-ghost{
+    background:var(--pink-mist);
+    color:var(--pink-deep);
+  }
+  .btn-ghost:hover{ background:var(--pink-pale); transform:translateY(-2px); }
+  .btn-block{ width:100%; }
+  .btn svg{ width:16px; height:16px; }
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky;
+    top:0;
+    z-index:500;
+    background:rgba(255,255,255,0.72);
+    backdrop-filter:blur(18px) saturate(160%);
+    -webkit-backdrop-filter:blur(18px) saturate(160%);
+    border-bottom:1px solid rgba(20,18,26,0.06);
+  }
+  .nav-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:-0.01em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand-mark{
+    width:32px; height:32px;
+    border-radius:10px;
+    background:linear-gradient(135deg, var(--pink), var(--pink-deep));
+    position:relative;
+    flex-shrink:0;
+  }
+  .brand-mark::before,.brand-mark::after{
+    content:'';
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.9);
+  }
+  .brand-mark::before{ width:6px; height:6px; top:8px; left:8px; }
+  .brand-mark::after{ width:9px; height:9px; bottom:6px; right:6px; border:2px solid rgba(255,255,255,0.9); background:transparent; }
+  .nav .btn-primary{ padding:12px 24px; font-size:14px; }
+  .brand-logo{ height:38px; width:auto; display:block; }
+  .brand-logo-fallback{ display:none; align-items:center; gap:10px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:120px 0 110px;
+    position:relative;
+    background:
+      radial-gradient(60% 60% at 82% 8%, var(--pink-pale) 0%, rgba(255,228,236,0) 70%),
+      var(--paper);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:block;
+    max-width:720px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .hero-grid .hero-sub{ margin-left:auto; margin-right:auto; }
+  .hero-grid .hero-actions{ justify-content:center; }
+  .hero-grid .hero-proof{ justify-content:center; }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 3.7rem);
+    margin-bottom:26px;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(100deg, var(--pink-deep), var(--pink));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero-sub{
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:560px;
+    margin-bottom:16px;
+  }
+  .hero-sub strong{ color:var(--ink); font-weight:600; }
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    margin-top:38px;
+    flex-wrap:wrap;
+  }
+  .hero-proof{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:44px;
+    font-size:13px;
+    color:var(--ink-faint);
+  }
+  .avatar-stack{ display:flex; }
+  .avatar-stack span{
+    width:30px; height:30px;
+    border-radius:50%;
+    border:2px solid #fff;
+    margin-left:-9px;
+    background:linear-gradient(135deg, var(--pink), var(--pink-deep));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:11px;font-weight:700;
+  }
+  .avatar-stack span:first-child{ margin-left:0; }
+
+  @keyframes floaty{
+    0%,100%{ transform:translateY(0px); }
+    50%{ transform:translateY(-10px); }
+  }
+  .hero-blob{
+    position:absolute;
+    width:420px; height:420px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,151,180,0.35), rgba(255,151,180,0) 70%);
+    top:-120px; right:-140px;
+    z-index:0;
+    filter:blur(10px);
+  }
+
+  /* ---------- Problem section ---------- */
+  .problem{ padding:130px 0; background:var(--cloud); }
+  .problem-cards{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+  .p-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    padding:32px 28px;
+    transition:transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+  }
+  .p-card:hover{
+    transform:translateY(-6px);
+    box-shadow:var(--shadow-md);
+    border-color:transparent;
+  }
+  .p-icon{
+    width:46px;height:46px;
+    border-radius:13px;
+    background:var(--pink-mist);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;
+    color:var(--pink-deep);
+  }
+  .p-icon svg{ width:22px;height:22px; }
+  .p-card h3{ font-size:18px; margin-bottom:10px; }
+  .p-card p{ font-size:15px; color:var(--ink-soft); }
+
+  .problem-statement{
+    margin-top:80px;
+    text-align:center;
+    padding:56px 40px;
+    border-radius:var(--radius-lg);
+    background:linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    color:#fff;
+  }
+  .problem-statement p{
+    font-size:clamp(1.4rem, 2.6vw, 2rem);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    max-width:760px;
+    margin:0 auto;
+    line-height:1.35;
+  }
+  .problem-statement p em{ font-style:normal; opacity:0.78; font-weight:500; }
+
+  @media (max-width:900px){ .problem-cards{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .problem-cards{ grid-template-columns:1fr; } }
+
+  /* ---------- Approach / timeline ---------- */
+  .approach{ padding:130px 0; }
+  .approach-grid{
+    display:grid;
+    grid-template-columns:0.95fr 1.05fr;
+    gap:80px;
+    align-items:start;
+  }
+  .approach-copy p{ font-size:17px; color:var(--ink-soft); margin-bottom:22px; }
+  .approach-questions{ margin:26px 0 30px; }
+  .approach-questions li{
+    display:flex; gap:12px; align-items:flex-start;
+    font-size:16px; color:var(--ink); margin-bottom:14px;
+  }
+  .approach-questions li svg{ width:18px;height:18px; margin-top:3px; flex-shrink:0; color:var(--pink-deep); }
+  .approach-final{ font-size:19px; font-weight:600; color:var(--ink); }
+
+  .timeline{ position:relative; padding-left:6px; }
+  .t-step{
+    position:relative;
+    padding-left:56px;
+    padding-bottom:56px;
+  }
+  .t-step:last-child{ padding-bottom:0; }
+  .t-step::before{
+    content:'';
+    position:absolute;
+    left:19px; top:44px; bottom:-4px;
+    width:2px;
+    background:repeating-linear-gradient(to bottom, var(--pink-pale) 0 6px, transparent 6px 12px);
+  }
+  .t-step:last-child::before{ display:none; }
+  .t-num{
+    position:absolute; left:0; top:0;
+    width:40px; height:40px;
+    border-radius:50%;
+    background:var(--paper);
+    border:2px solid var(--pink);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:14px;
+    color:var(--pink-deep);
+    box-shadow:0 4px 14px rgba(255,151,180,0.28);
+  }
+  .t-step h4{ font-size:19px; margin-bottom:6px; }
+  .t-step p{ font-size:15px; color:var(--ink-soft); max-width:420px; }
+
+  @media (max-width:900px){ .approach-grid{ grid-template-columns:1fr; gap:48px; } }
+
+  /* ---------- Services ---------- */
+  .services{ padding:130px 0; background:var(--cloud); }
+  .service-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .s-card{
+    background:var(--paper);
+    border-radius:var(--radius-lg);
+    padding:40px 34px;
+    box-shadow:var(--shadow-sm);
+    display:flex;
+    flex-direction:column;
+    transition:transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    position:relative;
+    overflow:hidden;
+  }
+  .s-card::before{
+    content:'';
+    position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg, var(--pink), var(--pink-deep));
+    opacity:0; transition:opacity 0.4s var(--ease);
+  }
+  .s-card:hover{ transform:translateY(-8px); box-shadow:var(--shadow-lg); }
+  .s-card:hover::before{ opacity:1; }
+  .s-card.featured{ background:var(--ink); color:#fff; }
+  .s-card.featured .s-timeline{ color:rgba(255,255,255,0.6); }
+  .s-card.featured p{ color:rgba(255,255,255,0.72); }
+  .s-tag{
+    align-self:flex-start;
+    font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--pink-deep); background:var(--pink-mist);
+    padding:6px 12px; border-radius:var(--radius-pill);
+    margin-bottom:22px;
+  }
+  .s-card.featured .s-tag{ background:rgba(255,151,180,0.18); color:var(--pink); }
+  .s-card h3{ font-size:23px; margin-bottom:14px; }
+  .s-card p{ font-size:15px; color:var(--ink-soft); margin-bottom:20px; flex-grow:1; }
+  .s-timeline{
+    display:flex; align-items:center; gap:8px;
+    font-size:13px; color:var(--ink-faint); margin-bottom:26px;
+    font-weight:600;
+  }
+  .s-timeline svg{ width:15px;height:15px; }
+
+  @media (max-width:980px){ .service-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- Imagine / compare ---------- */
+  .imagine{ padding:130px 0; }
+  .compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:20px;
+  }
+  .compare-col{
+    border-radius:var(--radius-lg);
+    padding:40px 34px;
+  }
+  .compare-col.without{
+    background:var(--cloud);
+    border:1px solid var(--line);
+  }
+  .compare-col.with{
+    background:linear-gradient(160deg, var(--pink-mist), #fff 60%);
+    border:1px solid var(--pink-pale);
+    box-shadow:var(--shadow-md);
+  }
+  .compare-label{
+    font-size:13px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+    margin-bottom:22px; display:flex; align-items:center; gap:10px;
+  }
+  .compare-col.without .compare-label{ color:var(--ink-faint); }
+  .compare-col.with .compare-label{ color:var(--pink-deep); }
+  .compare-col li{
+    display:flex; gap:12px; align-items:flex-start;
+    font-size:15.5px; padding:11px 0;
+    border-bottom:1px solid rgba(20,18,26,0.06);
+  }
+  .compare-col li:last-child{ border-bottom:none; }
+  .compare-col li svg{ width:18px;height:18px; flex-shrink:0; margin-top:2px; }
+  .compare-col.without li svg{ color:#C6C2CA; }
+  .compare-col.with li svg{ color:var(--pink-deep); }
+  .compare-col.without li{ color:var(--ink-soft); }
+  .compare-col.with li{ color:var(--ink); font-weight:500; }
+
+  @media (max-width:800px){ .compare{ grid-template-columns:1fr; } }
+
+  /* ---------- Client stories ---------- */
+  .stories{ padding:130px 0; background:var(--cloud); }
+  .video-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+    margin-bottom:100px;
+  }
+  .v-card{
+    background:var(--paper);
+    border-radius:var(--radius-lg);
+    padding:16px;
+    box-shadow:var(--shadow-sm);
+    transition:transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .v-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lg); }
+  .v-frame{
+    position:relative;
+    border-radius:var(--radius-md);
+    overflow:hidden;
+    aspect-ratio:9/16;
+    background:linear-gradient(160deg,var(--pink-pale),var(--pink-mist));
+  }
+  .v-frame video{ width:100%; height:100%; object-fit:cover; }
+  .v-fallback{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; color:var(--pink-deep); text-align:center; padding:20px;
+  }
+  .v-fallback svg{ width:38px;height:38px; }
+  .v-fallback span{ font-size:12px; font-weight:600; color:var(--ink-soft); }
+  .v-meta{ padding:18px 8px 6px; }
+  .v-meta h4{ font-size:16px; margin-bottom:3px; }
+  .v-meta p{ font-size:13px; color:var(--ink-faint); }
+
+  @media (max-width:900px){ .video-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .video-grid{ grid-template-columns:1fr; } }
+
+  .shots-head{ text-align:center; margin-bottom:48px; }
+  .shots-head h3{ font-size:clamp(1.5rem,2.6vw,2rem); margin-bottom:10px; }
+  .shots-head p{ color:var(--ink-soft); }
+
+  .masonry{
+    columns:2 280px;
+    column-gap:24px;
+  }
+  .shot-card{
+    break-inside:avoid;
+    margin-bottom:24px;
+    background:var(--paper);
+    border-radius:var(--radius-md);
+    box-shadow:var(--shadow-sm);
+    padding:14px;
+    cursor:zoom-in;
+    transition:transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .shot-card:hover{ transform:translateY(-6px) scale(1.01); box-shadow:var(--shadow-lg); }
+  .shot-card img{ border-radius:calc(var(--radius-md) - 6px); width:100%; }
+  .shot-fallback{
+    aspect-ratio:4/3;
+    border-radius:calc(var(--radius-md) - 6px);
+    background:var(--pink-mist);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--pink-deep); font-size:13px; font-weight:600; text-align:center; padding:20px;
+  }
+
+  /* lightbox */
+  .lightbox{
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(20,18,26,0.86);
+    display:flex; align-items:center; justify-content:center;
+    padding:40px;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.3s var(--ease);
+  }
+  .lightbox.open{ opacity:1; pointer-events:auto; }
+  .lightbox img{ max-width:min(900px,90vw); max-height:86vh; border-radius:16px; box-shadow:0 30px 80px rgba(0,0,0,0.5); }
+  .lightbox-close{
+    position:absolute; top:28px; right:32px;
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(255,255,255,0.12); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.3s var(--ease);
+  }
+  .lightbox-close:hover{ background:rgba(255,255,255,0.24); }
+
+  /* ---------- Case study ---------- */
+  .case{ padding:130px 0; }
+  .case-top{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:40px;
+    margin-bottom:70px; flex-wrap:wrap;
+  }
+  .case-tags{ display:flex; gap:12px; flex-wrap:wrap; }
+  .case-tag{
+    font-size:13px; font-weight:600; padding:9px 16px;
+    border-radius:var(--radius-pill); background:var(--pink-mist); color:var(--pink-deep);
+    display:flex; align-items:center; gap:8px;
+  }
+  .case-tag svg{ width:15px;height:15px; }
+
+  .case-timeline{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    position:relative;
+  }
+  .case-timeline::before{
+    content:'';
+    position:absolute; top:26px; left:8%; right:8%; height:2px;
+    background:var(--pink-pale);
+    z-index:0;
+  }
+  .c-step{ position:relative; z-index:1; text-align:left; }
+  .c-icon{
+    width:52px; height:52px; border-radius:16px;
+    background:var(--paper); border:2px solid var(--pink-pale);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px; color:var(--pink-deep);
+    box-shadow:var(--shadow-sm);
+  }
+  .c-icon svg{ width:24px;height:24px; }
+  .c-step h4{ font-size:17px; margin-bottom:8px; }
+  .c-step p{ font-size:14.5px; color:var(--ink-soft); }
+
+  @media (max-width:900px){
+    .case-timeline{ grid-template-columns:1fr 1fr; row-gap:44px; }
+    .case-timeline::before{ display:none; }
+  }
+  @media (max-width:560px){ .case-timeline{ grid-template-columns:1fr; } }
+
+  /* ---------- About ---------- */
+  .about{ padding:130px 0; background:var(--cloud); }
+  .about-grid{
+    display:grid;
+    grid-template-columns:0.8fr 1.2fr;
+    gap:70px;
+    align-items:center;
+  }
+  .about-art{ position:relative; aspect-ratio:1/1; max-width:380px; margin-bottom:20px; }
+  .about-blob{
+    position:absolute; inset:0;
+    border-radius:38% 62% 60% 40% / 45% 40% 60% 55%;
+    background:linear-gradient(150deg, var(--pink), var(--pink-deep));
+    animation:morph 10s ease-in-out infinite;
+  }
+  @keyframes morph{
+    0%,100%{ border-radius:38% 62% 60% 40% / 45% 40% 60% 55%; }
+    50%{ border-radius:56% 44% 40% 60% / 55% 60% 40% 45%; }
+  }
+  .about-photo-frame{
+    position:absolute; inset:0;
+    overflow:hidden;
+    border-radius:38% 62% 60% 40% / 45% 40% 60% 55%;
+    animation:morph 10s ease-in-out infinite;
+    box-shadow:var(--shadow-lg);
+    z-index:1;
+  }
+  .about-photo-frame img{
+    width:100%; height:100%; object-fit:cover; object-position:center 18%;
+    display:block;
+  }
+  .about-ring{
+    position:absolute; inset:14%;
+    border:2px solid rgba(255,255,255,0.65);
+    border-radius:50%;
+    pointer-events:none;
+    z-index:2;
+  }
+  .about-float{
+    position:absolute;
+    bottom:-28px; left:-34px;
+    width:118px; height:140px;
+    background:#fff;
+    padding:8px;
+    border-radius:16px;
+    box-shadow:var(--shadow-md);
+    transform:rotate(-7deg);
+    z-index:3;
+    animation:floaty 6s ease-in-out infinite;
+  }
+  .about-float2{
+    position:absolute;
+    top:-20px; right:-30px;
+    width:96px; height:112px;
+    background:#fff;
+    padding:7px;
+    border-radius:14px;
+    box-shadow:var(--shadow-md);
+    transform:rotate(8deg);
+    z-index:3;
+    animation:floaty 7s ease-in-out infinite;
+    animation-delay:1.2s;
+  }
+  .about-float2 img{
+    width:100%; height:100%; object-fit:cover; border-radius:8px;
+  }
+  .about-float img{
+    width:100%; height:100%; object-fit:cover; border-radius:10px;
+  }
+  .about-copy h2{ font-size:clamp(2rem,3.4vw,2.7rem); margin-bottom:22px; }
+  .about-copy p{ font-size:17px; color:var(--ink-soft); margin-bottom:20px; max-width:560px; }
+  .about-copy .quote{ font-size:19px; color:var(--ink); font-weight:600; margin:26px 0; }
+
+  @media (max-width:900px){ .about-grid{ grid-template-columns:1fr; gap:40px; } .about-art{ margin:0 auto 40px; } }
+  @media (max-width:480px){
+    .about-float{ width:92px; height:108px; left:-14px; bottom:-20px; }
+    .about-float2{ width:76px; height:88px; top:-14px; right:-14px; }
+  }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{
+    padding:140px 0;
+    text-align:center;
+    background:linear-gradient(160deg, #171319 0%, #241621 60%, var(--ink) 100%);
+    position:relative;
+    overflow:hidden;
+  }
+  .final-cta::before{
+    content:'';
+    position:absolute; width:600px; height:600px; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,151,180,0.28), transparent 70%);
+    top:-260px; left:50%; transform:translateX(-50%);
+  }
+  .final-cta h2{
+    color:#fff; font-size:clamp(2.1rem,4vw,3.2rem); margin-bottom:22px; position:relative;
+  }
+  .final-cta p{
+    color:rgba(255,255,255,0.7); font-size:18px; max-width:560px; margin:0 auto 40px; position:relative;
+  }
+  .final-cta .btn-primary{ padding:18px 38px; font-size:16px; position:relative; }
+
+  /* ---------- Footer ---------- */
+  .site-footer{ background:var(--ink); color:rgba(255,255,255,0.7); padding:64px 0 32px; }
+  .footer-top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:40px;
+    flex-wrap:wrap; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand .brand{ margin-bottom:14px; }
+  .footer-brand .brand-logo-wrap{
+    display:inline-flex; align-items:center;
+    background:#fff; padding:10px 14px; border-radius:12px;
+  }
+  .footer-brand .brand-logo{ height:28px; }
+  .footer-brand .brand-logo-fallback{ color:#fff; }
+  .footer-brand p{ max-width:340px; font-size:14.5px; color:rgba(255,255,255,0.55); }
+  .social-row{ display:flex; gap:12px; }
+  .social-row a{
+    width:42px; height:42px; border-radius:50%;
+    background:rgba(255,255,255,0.06);
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .social-row a:hover{ background:var(--pink); transform:translateY(-3px); }
+  .social-row svg{ width:18px;height:18px; color:#fff; }
+  .footer-bottom{
+    padding-top:28px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:13px; color:rgba(255,255,255,0.4);
+  }
+
+  @media (max-width:640px){
+    .wrap{ padding:0 22px; }
+    .hero{ padding:100px 0 70px; }
+    .problem,.approach,.services,.imagine,.stories,.case,.about{ padding:90px 0; }
+    .nav-inner{ padding:14px 20px; }
+  }
+</style>
+
+<div class="full-bleed">
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <img src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4a7a8c0ec2.67315948_Untitleddesign.png" alt="Systems with Sarah" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <span class="brand-logo-fallback"><span class="brand-mark"></span>Systems with Sarah</span>
+    </a>
+    <a class="btn btn-primary" href="https://calendly.com/lugtusarahmae/15min/" target="_blank" rel="noopener">Book a Discovery Call</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-blob" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="reveal in-view">
+        <div class="eyebrow">Business Systems &amp; Operations</div>
+        <h1>Build a business that <span class="accent">keeps moving</span>&mdash;even when you step away.</h1>
+        <p class="hero-sub">Running a business shouldn't mean carrying everything on your shoulders.</p>
+        <p class="hero-sub">As your business grows, you become the one following up with leads, answering the same questions, managing your team, and remembering every little detail.</p>
+        <p class="hero-sub"><strong>I help business owners build the systems behind their business</strong> so they can spend less time managing day-to-day operations and more time doing the work only they can do.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://calendly.com/lugtusarahmae/15min/" target="_blank" rel="noopener">Book a Discovery Call</a>
+          <a class="btn btn-secondary" href="#stories">See Client Stories</a>
+        </div>
+        <div class="hero-proof">
+          <div class="avatar-stack">
+            <span>S</span><span>C</span><span>S</span>
+          </div>
+          Trusted by coaches, consultants &amp; growing online businesses
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center">The Problem</div>
+        <h2>Your business is growing... but so is the overwhelm.</h2>
+        <p>These are the quiet costs of scaling without the systems to support it.</p>
+      </div>
+
+      <div class="problem-cards reveal-stagger">
+        <div class="p-card reveal" style="--i:0">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+          <h3>Manual follow-ups</h3>
+          <p>Leads and clients slip through the cracks when every touchpoint depends on someone remembering to send it.</p>
+        </div>
+        <div class="p-card reveal" style="--i:1">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg></div>
+          <h3>Messy client onboarding</h3>
+          <p>New clients aren't sure what happens next, and your team improvises the experience every single time.</p>
+        </div>
+        <div class="p-card reveal" style="--i:2">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div>
+          <h3>Your team depends on you</h3>
+          <p>Every decision, every answer, every "how do we do this" question still routes back through you.</p>
+        </div>
+        <div class="p-card reveal" style="--i:3">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="7" height="7" rx="1.5"/><rect x="15" y="9" width="7" height="7" rx="1.5"/><path d="M9 12.5h6"/></svg></div>
+          <h3>Disconnected software</h3>
+          <p>You've bought the tools, but they don't talk to each other&mdash;so you're the one stitching it all together.</p>
+        </div>
+        <div class="p-card reveal" style="--i:4">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+          <h3>Scattered processes</h3>
+          <p>What works lives in someone's notes, a random doc, or nowhere at all&mdash;so nothing is repeatable.</p>
+        </div>
+        <div class="p-card reveal" style="--i:5">
+          <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2a5.5 5.5 0 0 0-5.4 6.6A4.5 4.5 0 0 0 5 17h1"/><path d="M14.5 2a5.5 5.5 0 0 1 5.4 6.6A4.5 4.5 0 0 1 19 17h-1"/><path d="M9 17v3a2 2 0 0 0 4 0v-3"/><path d="M9 17h6"/></svg></div>
+          <h3>Everything lives inside your head</h3>
+          <p>If you took a real vacation tomorrow, your business would run on memory alone&mdash;yours.</p>
+        </div>
+      </div>
+
+      <div class="problem-statement reveal">
+        <p>"The problem isn't your business.<br><em>Your business has simply outgrown its systems.</em>"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach">
+    <div class="wrap approach-grid">
+      <div class="approach-copy reveal">
+        <div class="eyebrow">My Approach</div>
+        <h2 style="font-size:clamp(1.9rem,3.2vw,2.5rem); margin-bottom:24px;">I don't start with software. I start by understanding your business.</h2>
+        <p>Before building anything, I take time to understand how your business actually works.</p>
+        <p>I ask questions like:</p>
+        <ul class="approach-questions">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg> Where are people getting stuck?</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg> What's taking up your team's time?</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg> What keeps depending on you?</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg> What should stay personal?</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg> What can the system take care of?</li>
+        </ul>
+        <p>Because the goal isn't to automate everything.</p>
+        <p class="approach-final">The goal is to make your business easier to run.</p>
+      </div>
+
+      <div class="timeline reveal">
+        <div class="t-step reveal" style="--i:0">
+          <div class="t-num">1</div>
+          <h4>Understand</h4>
+          <p>We map how your business actually runs today&mdash;where time goes, where things break, what only you can do.</p>
+        </div>
+        <div class="t-step reveal" style="--i:1">
+          <div class="t-num">2</div>
+          <h4>Simplify</h4>
+          <p>We remove the friction and the noise before we add anything new. Simple first, always.</p>
+        </div>
+        <div class="t-step reveal" style="--i:2">
+          <div class="t-num">3</div>
+          <h4>Build</h4>
+          <p>We put the right systems and processes in place&mdash;documented, connected, and built around how you work.</p>
+        </div>
+        <div class="t-step reveal" style="--i:3">
+          <div class="t-num">4</div>
+          <h4>Grow</h4>
+          <p>With the backend handled, you spend your time on the work that actually grows the business.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center">How We Can Work Together</div>
+        <h2>Ways to work with Sarah</h2>
+        <p>Every engagement starts with understanding your business first&mdash;then we choose the right level of support.</p>
+      </div>
+
+      <div class="service-grid reveal-stagger">
+        <div class="s-card reveal" style="--i:0">
+          <span class="s-tag">Start here</span>
+          <h3>Business Systems Audit</h3>
+          <p>A deep look at how your business runs today&mdash;where time leaks, where bottlenecks live, and exactly what to fix first.</p>
+          <div class="s-timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>1&ndash;2 weeks</div>
+          <a class="btn btn-ghost btn-block" href="https://calendly.com/lugtusarahmae/15min/" target="_blank" rel="noopener">Book a Discovery Call</a>
+        </div>
+
+        <div class="s-card featured reveal" style="--i:1">
+          <span class="s-tag">Most popular</span>
+          <h3>Business Operating System</h3>
+          <p>I design and build the systems, workflows, and documentation your business runs on&mdash;so your team knows exactly what to do, every time.</p>
+          <div class="s-timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>4&ndash;6 weeks</div>
+          <a class="btn btn-primary btn-block" href="https://calendly.com/lugtusarahmae/15min/" target="_blank" rel="noopener">Book a Discovery Call</a>
+        </div>
+
+        <div class="s-card reveal" style="--i:2">
+          <span class="s-tag">Ongoing</span>
+          <h3>Growth Partner</h3>
+          <p>Ongoing support as your business evolves&mdash;refining systems, solving new bottlenecks, and keeping operations ahead of your growth.</p>
+          <div class="s-timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Monthly partnership</div>
+          <a class="btn btn-ghost btn-block" href="https://calendly.com/lugtusarahmae/15min/" target="_blank" rel="noopener">Book a Discovery Call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGINE -->
+  <section class="imagine">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center">Imagine This</div>
+        <h2>Imagine taking a vacation without wondering if your business will fall apart.</h2>
+      </div>
+
+      <div class="compare reveal">
+        <div class="compare-col without">
+          <div class="compare-label"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg> Without Systems</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>Everything depends on you</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>Manual follow-ups</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>Scattered information</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>Repetitive work</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>Owner bottleneck</li>
+          </ul>
+        </div>
+        <div class="compare-col with">
+          <div class="compare-label"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> With Systems</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Leads are followed up</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Clients know exactly what happens next</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Your team knows what to do</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Processes are documented</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Your business keeps moving&mdash;even while you're away</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT STORIES -->
+  <section class="stories" id="stories">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center">Client Stories</div>
+        <h2>Hear It From My Clients</h2>
+        <p>The best way to understand how I work is to hear directly from the business owners I've had the privilege of helping.</p>
+      </div>
+
+      <div class="video-grid reveal-stagger">
+        <div class="v-card reveal" style="--i:0">
+          <div class="v-frame">
+            <video controls preload="none" playsinline poster="">
+              <source src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c970d4677c0.19550560_Grace.mp4" type="video/mp4">
+            </video>
+            <div class="v-fallback" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              <span>Video coming soon</span>
+            </div>
+          </div>
+          <div class="v-meta"><h4>Grace</h4><p>Client</p></div>
+        </div>
+        <div class="v-card reveal" style="--i:1">
+          <div class="v-frame">
+            <video controls preload="none" playsinline poster="">
+              <source src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4b548b6de2.38557006_GMT20240805-134856_Recording_640x360.mp4" type="video/mp4">
+            </video>
+            <div class="v-fallback" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              <span>Video coming soon</span>
+            </div>
+          </div>
+          <div class="v-meta"><h4>Cosette Remund</h4><p>Founder, Scalable Coaching</p></div>
+        </div>
+        <div class="v-card reveal" style="--i:2">
+          <div class="v-frame">
+            <video controls preload="none" playsinline poster="">
+              <source src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4b548d7f47.22166094_WIN_20240808_16_33_47_Pro.mp4" type="video/mp4">
+            </video>
+            <div class="v-fallback" style="display:none">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              <span>Video coming soon</span>
+            </div>
+          </div>
+          <div class="v-meta"><h4>Sean Littman</h4><p>Founder, GiveSuite</p></div>
+        </div>
+      </div>
+
+      <div class="shots-head reveal">
+        <h3>More Kind Words</h3>
+        <p>Click any card to see the full message.</p>
+      </div>
+
+      <div class="masonry reveal" id="masonry">
+        <div class="shot-card" data-full="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4e20e4b774.08703725_Ziv.PNG">
+          <img src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4e20e4b774.08703725_Ziv.PNG" alt="Testimonial from Ziv" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="shot-fallback" style="display:none">Testimonial from Ziv</div>
+        </div>
+        <div class="shot-card" data-full="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4e20e2a333.92405690_Chharisse.png">
+          <img src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4e20e2a333.92405690_Chharisse.png" alt="Testimonial from Chharrisse" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="shot-fallback" style="display:none">Testimonial from Chharrisse</div>
+        </div>
+        <div class="shot-card" data-full="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4e20e10d71.32957242_AnneandLiselle.png">
+          <img src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4e20e10d71.32957242_AnneandLiselle.png" alt="Testimonial from Anne and Liselle" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="shot-fallback" style="display:none">Testimonial from Anne and Liselle</div>
+        </div>
+        <div class="shot-card" data-full="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4e20bf38a7.19663080_David.JPG">
+          <img src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4e20bf38a7.19663080_David.JPG" alt="Testimonial from David" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="shot-fallback" style="display:none">Testimonial from David</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <img id="lightboxImg" src="" alt="Enlarged testimonial">
+  </div>
+
+  <!-- CASE STUDY -->
+  <section class="case">
+    <div class="wrap">
+      <div class="case-top reveal">
+        <div class="section-head" style="margin-bottom:0;">
+          <div class="eyebrow">Case Study</div>
+          <h2 style="font-size:clamp(1.9rem,3.2vw,2.5rem);">Building the Systems Behind a Growing Education Business</h2>
+        </div>
+        <div class="case-tags">
+          <span class="case-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></svg>Education &amp; Coaching</span>
+          <span class="case-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Business Systems Partner</span>
+        </div>
+      </div>
+
+      <div class="case-timeline reveal-stagger">
+        <div class="c-step reveal" style="--i:0">
+          <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
+          <h4>Challenge</h4>
+          <p>Rapid growth had outpaced the back-end&mdash;onboarding was manual, the team leaned on the founder for every answer, and leads were falling through the cracks.</p>
+        </div>
+        <div class="c-step reveal" style="--i:1">
+          <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <h4>Strategy</h4>
+          <p>We mapped the full client journey, identified where the founder was the bottleneck, and prioritized the systems that would create the most relief, fastest.</p>
+        </div>
+        <div class="c-step reveal" style="--i:2">
+          <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+          <h4>Systems Built</h4>
+          <p>A documented onboarding flow, automatic lead follow-up, and a shared operations hub so the team no longer needed to ask the founder first.</p>
+        </div>
+        <div class="c-step reveal" style="--i:3">
+          <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></div>
+          <h4>Outcome</h4>
+          <p>The founder stepped back from day-to-day operations, the team runs independently, and the business keeps moving&mdash;even during time off.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="wrap about-grid">
+      <div class="about-art reveal">
+        <div class="about-photo-frame">
+          <img src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c48f728dac5.81994179_AbouttheAuthor.jpg" alt="Sarah, founder of Systems with Sarah" onerror="this.parentElement.style.background='linear-gradient(150deg, var(--pink), var(--pink-deep))'; this.style.display='none';">
+        </div>
+        <div class="about-ring"></div>
+        <div class="about-float">
+          <img src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4934ecc797.61577290_5f659dfd-d4fa-46de-9658-9ce6a5ceece2.jpg" alt="Sarah smiling" onerror="this.parentElement.style.display='none';">
+        </div>
+        <div class="about-float2">
+          <img src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c492560c832.15567286_photo_6319102992707161644_y.jpg" alt="Sarah" onerror="this.parentElement.style.display='none';">
+        </div>
+      </div>
+      <div class="about-copy reveal">
+        <div class="eyebrow">About Sarah</div>
+        <h2>Hi, I'm Sarah.</h2>
+        <p>I'm someone who genuinely enjoys making complicated things simple.</p>
+        <p class="quote">I love looking at a business and asking, "How can we make this easier?"</p>
+        <p>Whether it's organizing operations, improving client experiences, or building systems behind the scenes, my goal is always the same: to help business owners spend less time managing their business and more time growing it.</p>
+        <p>Because I believe your business should support your life&mdash;not take it over.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="wrap">
+      <h2 class="reveal">Ready to make your business easier to run?</h2>
+      <p class="reveal">Let's build the systems that give you more clarity, more confidence, and more time to focus on growing your business.</p>
+      <a class="btn btn-primary reveal" href="https://calendly.com/lugtusarahmae/15min/" target="_blank" rel="noopener">Book a Discovery Call</a>
+    </div>
+  </section>
+
+</main>
+
+<div class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="brand">
+          <span class="brand-logo-wrap">
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/5350992/6a6c4a7a8c0ec2.67315948_Untitleddesign.png" alt="Systems with Sarah" class="brand-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="brand-logo-fallback" style="display:none"><span class="brand-mark"></span>Systems with Sarah</span>
+          </span>
+        </a>
+        <p>Helping business owners build the systems that make running their business easier.</p>
+      </div>
+      <div class="social-row">
+        <a href="https://www.instagram.com/_systemswithsarah/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="https://www.linkedin.com/in/sarahmaelugtu/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4V8h4v2a6 6 0 0 1 2-2z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Systems with Sarah. All rights reserved.</span>
+      <span>Built with intention, one system at a time.</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Reveal on scroll
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in-view'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    items.forEach(function(el){ io.observe(el); });
+  })();
+
+  // Video fallback if source fails to load
+  document.querySelectorAll('.v-frame video').forEach(function(v){
+    v.addEventListener('error', function(){
+      v.style.display = 'none';
+      var fb = v.parentElement.querySelector('.v-fallback');
+      if(fb) fb.style.display = 'flex';
+    }, true);
+  });
+
+  // Lightbox for testimonial screenshots
+  (function(){
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var closeBtn = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.shot-card').forEach(function(card){
+      card.addEventListener('click', function(){
+        var img = card.querySelector('img');
+        if(!img || img.style.display === 'none') return;
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+      });
+    });
+
+    function closeLightbox(){ lightbox.classList.remove('open'); lightboxImg.src=''; }
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function(e){ if(e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLightbox(); });
+  })();
+
+  // Force full width: neutralize any ancestor container (Row/Section/Column)
+  // that constrains width or clips overflow, since the CSS breakout alone
+  // can be clipped by a parent with overflow:hidden.
+  (function(){
+    var el = document.querySelector('.full-bleed');
+    if(!el) return;
+    var node = el.parentElement;
+    var depth = 0;
+    while(node && node.tagName && node.tagName.toLowerCase() !== 'body' && depth < 10){
+      var cs = window.getComputedStyle(node);
+      if(cs.overflowX === 'hidden' || cs.overflow === 'hidden'){
+        node.style.overflow = 'visible';
+      }
+      if(cs.maxWidth && cs.maxWidth !== 'none'){
+        node.style.maxWidth = 'none';
+      }
+      node = node.parentElement;
+      depth++;
+    }
+  })();
+</script>
+
